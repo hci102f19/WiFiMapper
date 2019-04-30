@@ -21,12 +21,11 @@ for file in glob.glob('./output2/*.json'):
                 if hotspots[hotspot['mac']] is None:
                     hotspots[hotspot['mac']] = {
                         'frequency': hotspot['frequency'],
-                        'signal': hotspot['signal'],
+                        'signal': [hotspot['signal']],
                         'mac': hotspot['mac']
                     }
                 else:
-                    if hotspots[hotspot['mac']]['signal'] > hotspot['signal']:
-                        hotspots[hotspot['mac']]['signal'] = hotspot['signal']
+                    hotspots[hotspot['mac']]['signal'].append(hotspot['signal'])
     data['data'] = [v for k, v in hotspots.items()]
 
     json.dump(data, open('./output3/{}.json'.format(filenr), 'w'))

@@ -90,9 +90,13 @@
     function test(test) {
         let keyIdx = parseInt(test);
         if (keyIdx < Object.keys(colors).length) {
-            var key = Object.keys(colors)[keyIdx];
             features.clearLayers();
+
+            let key = Object.keys(colors)[keyIdx];
             features.addLayer(colors[key]['points']);
+
+            if (features.getLayers().length !== 0)
+                mymap.fitBounds(features.getBounds());
         }
     }
 </script>

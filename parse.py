@@ -1,6 +1,7 @@
 import glob
 import json
 import math
+from statistics import mean
 
 from flask import Flask, jsonify, render_template
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 
 
 def get_distance(frequency, signal):
-    exp = (27.55 - (20 * math.log10(frequency)) + abs(int(signal))) / 20.0
+    exp = (27.55 - (20 * math.log10(frequency)) + abs(int(mean(signal)))) / 20.0
     return round(math.pow(10.0, exp), 2)
 
 
