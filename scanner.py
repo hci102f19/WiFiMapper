@@ -1,4 +1,5 @@
 import subprocess
+from time import sleep
 
 import re
 
@@ -14,8 +15,12 @@ class Scanner(object):
         self.frequency_regex = re.compile(r'Frequency:([0-9.]+) GHz')
 
     def scan(self):
-        output = subprocess.getoutput(self.cmd)
-        return self.parse_output(output)
+        scans = []
+        for x in range(10):
+            output = subprocess.getoutput(self.cmd)
+            scans.append(self.parse_output(output))
+            sleep(0.25)
+        return scans
 
     def parse_output(self, output):
         networks = []

@@ -11,6 +11,7 @@ while running:
     if test.lower() == 'y':
         print("Scanning...")
         json.dump(scanner.scan(), open('./output/{}.json'.format(i), 'w'))
-        print("Done")
+        print("Done: {}".format(i))
+        i += 1
     elif test.lower() == 'n':
         running = False
