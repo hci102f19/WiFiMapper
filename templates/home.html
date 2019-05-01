@@ -39,66 +39,24 @@
         fillColor: '#f03',
         fillOpacity: 0.5
     };
-    var mymap = L.map('mapid').setView([57.011296, 9.993754], 20);
+    var mymap = L.map('mapid').setView([57.01223708466179, 9.991203452148966], 20);
 
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    L.tileLayer('https://tiles.mapsindoors.com/tiles/indoor/aaudk/v2018.10.05/all/l0/z{z}/x{x}/y{y}.png', {
+        attribution: '',
         id: 'mapbox.streets'
     }).addTo(mymap);
+    var bounds = [[57.012876, 9.991926748677315], [57.01175361017736, 9.990394829873026]];
+    L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(mymap);
 
-    let features = L.featureGroup();
-    features.addTo(mymap);
-
-    $.getJSON("/scans", function (data) {
+    $.getJSON("/wifi", function (data) {
         for (let i = 0; i < data.length; i++) {
             let scan = data[i];
-            L.circle([scan['lat'], scan['lon']], 1, marker).addTo(mymap);
-
-            for (let j = 0; j < scan['data'].length; j++) {
-                let hotspot = scan['data'][j];
-
-                {#if (hotspot['distance'] > 20)#}
-                {#    continue;#}
-
-                let mac = hotspot['mac'];
-
-                if (!(mac in colors)) {
-                    colors[mac] = {
-                        'color': '#' + Math.floor(Math.random() * 16777215).toString(16),
-                        'points': L.featureGroup()
-                    };
-                }
-
-                let color = colors[mac]['color'];
-
-                let point = L.circle([scan['lat'], scan['lon']], hotspot['distance'], {
-                    color: color,
-                    fillOpacity: 0
-                });
-
-                colors[mac]['points'].addLayer(point);
-            }
+            L.circle([scan['lat'], scan['lon']], 1.5, marker).addTo(mymap).bindPopup("ID: " + scan['hotspot']);
         }
 
 
-        if (features.getLayers().length !== 0)
-            mymap.fitBounds(features.getBounds());
     });
-
-    function test(test) {
-        let keyIdx = parseInt(test);
-        if (keyIdx < Object.keys(colors).length) {
-            features.clearLayers();
-
-            let key = Object.keys(colors)[keyIdx];
-            features.addLayer(colors[key]['points']);
-
-            if (features.getLayers().length !== 0)
-                mymap.fitBounds(features.getBounds());
-        }
-    }
 </script>
 
 

@@ -13,6 +13,11 @@ def get_distance(frequency, signal):
     return round(math.pow(10.0, exp), 2)
 
 
+@app.route('/wifi')
+def wifi():
+    return jsonify(json.load(open('./wifis/GroundFloor.json', 'r')))
+
+
 @app.route('/scans')
 def scans():
     scans = []
