@@ -12,5 +12,3 @@ while True:
 
     os.system('cls' if os.name == 'nt' else 'clear')
     print(json.dumps(sorted_spots[0], indent=4))
-
-    sleep(1)
