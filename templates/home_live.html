@@ -50,11 +50,11 @@
     var bounds = [[57.012876, 9.991926748677315], [57.01175361017736, 9.990394829873026]];
     L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(mymap);
 
-    $.getJSON("/wifi", function (data) {
+    $.getJSON("/scans", function (data) {
         for (let i = 0; i < data.length; i++) {
             let scan = data[i];
             let text = "ID: " + scan['hotspot']+"<br>Mac: " + scan['mac'];
-            L.circle([scan['lat'], scan['lon']], 1.5, marker).addTo(mymap).bindPopup(text);
+            L.circle([scan['lat'], scan['lon']], scan['dist'], marker).addTo(mymap).bindPopup(text);
         }
     });
 </script>

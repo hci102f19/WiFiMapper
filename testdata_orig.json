@@ -1,0 +1,41 @@
+{
+  "access_points": [
+    {
+      "distance": 1.23,
+      "distance2": 3.55,
+      "essid": "AAU-1x",
+      "frequency": 2437,
+      "mac": "1C:1D:86:EE:3F:62",
+      "quality": 97.14,
+      "signal": -42
+    },
+    {
+      "distance": 6.24,
+      "distance2": 17.78,
+      "essid": "AAU-1x",
+      "frequency": 2412,
+      "mac": "FC:5B:39:84:92:C2",
+      "quality": 77.14,
+      "signal": -56
+    },
+    {
+      "distance": 49.56,
+      "distance2": 141.25,
+      "essid": "AAU-1x",
+      "frequency": 2412,
+      "mac": "FC:5B:39:84:91:22",
+      "quality": 51.43,
+      "signal": -74
+    },
+    {
+      "distance": 172.27,
+      "distance2": 501.19,
+      "essid": "AAU-1x",
+      "frequency": 2462,
+      "mac": "1C:1D:86:F6:0B:92",
+      "quality": 35.71,
+      "signal": -85
+    }
+  ],
+  "ssid": "AAU-1x"
+}
