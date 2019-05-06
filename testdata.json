@@ -7,7 +7,7 @@
       "frequency": 2437,
       "mac": "1C:1D:86:EE:3F:62",
       "quality": 97.14,
-      "signal": -60
+      "signal": -42
     },
     {
       "distance": 6.24,
@@ -25,7 +25,7 @@
       "frequency": 2412,
       "mac": "FC:5B:39:84:91:22",
       "quality": 51.43,
-      "signal": -60
+      "signal": -74
     },
     {
       "distance": 172.27,

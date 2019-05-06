@@ -1,9 +1,11 @@
 import json
-import math
 import socket
 from threading import Thread
 
+import math
 from flask import Flask, render_template, jsonify
+
+from trilateration_test3 import calc_stuff
 
 app = Flask(__name__)
 
@@ -51,6 +53,7 @@ def mapping(scan):
             return {
                 'mac': scan['mac'],
                 'signal': scan['signal'],
+                'color': 'red',
                 'lat': m['lat'],
                 'lon': m['lon'],
                 'dist': get_distance(scan['frequency'], scan['signal'])
@@ -61,6 +64,31 @@ def mapping(scan):
 @app.route('/scans')
 def scans():
     data = [mapping(t) for t in wifis.get('access_points', []) if mapping(t) is not None]
+
+    # x, y, d = make_circle([(57.01200967, 9.99058806), (57.01212772, 9.99058034)])
+    # dist = (EARTH_CIRCUMFERENCE * d / (16 * math.pi))
+    # data.append({
+    #     'mac': "",
+    #     'signal': "",
+    #     'color': 'blue',
+    #     'lat': x,
+    #     'lon': y,
+    #     'dist': round(dist, 2)
+    # })
+
+    locations = [(d['lat'], d['lon']) for d in data]
+    distances = [d['dist'] for d in data]
+
+    k = calc_stuff(locations, distances)
+
+    data.append({
+        'mac': "",
+        'signal': "",
+        'color': 'blue',
+        'lat': k[0],
+        'lon': k[1],
+        'dist': 1
+    })
 
     return jsonify(data)
 
